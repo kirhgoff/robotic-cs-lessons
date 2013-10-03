@@ -8,7 +8,7 @@ from datetime import datetime
 def generate_data(count):
 	result = []
 	for i in range(count): #What kind of array should we teach? All of them?
-		result.append(random.randint(0, 100))
+		result.append(random.randint(0, 1000))
 	return result
 
 #----------------------------------------------------
@@ -49,6 +49,7 @@ def find_max_straight(data):
 
 #-----------------------------------------------------
 # Bubble sort
+
 def sort_bubble(data):
 	start = datetime.now()
 
@@ -61,8 +62,43 @@ def sort_bubble(data):
 
 	end = datetime.now()
 	spent = end - start
-	print("Bubble sort spent time is %s" % spent.microseconds)
+	print("Bubble sort spent time is %s microseconds" % spent.microseconds)
 
+#-----------------------------------------------------
+# Insertion sort
+
+def sort_insertion(data):
+	start = datetime.now()
+
+	for i in range(1, len (data)):
+		item = data [i]
+		j = i - 1
+		while j >= 0 and data [j] < item:
+			data [j+1] = data [j]
+			j = j - 1
+		data [j+1] = item
+
+	end = datetime.now()
+	spent = end - start
+	print("Insertion sort spent time is %s microseconds" % spent.microseconds)
+
+#-----------------------------------------------------
+# Merge sort
+
+def sort_merge(data):
+	start = datetime.now()
+
+	for i in range(1, len (data)):
+		item = data [i]
+		j = i - 1
+		while j >= 0 and data [j] < item:
+			data [j+1] = data [j]
+			j = j - 1
+		data [j+1] = item
+
+	end = datetime.now()
+	spent = end - start
+	print("Merge sort spent time is %s microseconds" % spent.microseconds)
 
 #-----------------------------------------------------
 # main program
@@ -71,17 +107,17 @@ if __name__ == '__main__':
 	print ("Starting first lesson now...")
 
 	print ("Generating sample data")
-	data = generate_data(100)
+	data = generate_data(10000)
 	save_to_file('data.txt', data)
-
-	data = read_from_file('sample.txt')
-	print("Read data, %s items" % len(data))
 
 	max = find_max_straight(data)
 	print ("Maximum item is %s " % max)
 
 	data = read_from_file('data.txt')
 	sort_bubble(data)
-	print("Sorted data is %s" % [int(i) for i in data]) #Complicated
+	#print("Sorted data is %s" % [int(i) for i in data]) #Complicated
 
+	data = read_from_file('data.txt')
+	sort_insertion(data)
+	#print("Sorted data is %s" % [int(i) for i in data]) #Complicated
 
